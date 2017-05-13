@@ -1,0 +1,105 @@
+<!DOCTYPE>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="./css/reset.css">
+        <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+        <link rel="stylesheet" href="./css/bootstrap_theme.min.css">
+        <link rel="stylesheet" href="./css/styles.css">
+        <title>Train Times!</title>
+    </head>
+    <body>
+        
+        <div class="container">
+            <div class="jumbotron">
+                <h1 id="main-title">Any Time is Train Time</h1>
+                <h2 id="sub-title">Choo Choo!</h2>
+                <button type="button" class="btn" id="login-register">Login/Register</button>
+                <div id="welcome">
+                    <div id="welcome-text"></div>
+                    <button type="button" class="btn" id="sign-out">Sign Out</button>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">Current Train Schedule</div>
+                        <table class="table" >
+                            <thead>
+                                <tr>
+                                    <th>Train Name</th>
+                                    <th>Destination</th>
+                                    <th>Frequency (min)</th>
+                                    <th>Next Arrival</th>
+                                    <th>Minutes Away</th>
+                                </tr>
+                            </thead>
+                            <tbody id="train-board">
+                                
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">Add a train</div>
+                        <label class="input-label" for="train-name">Train Name</label>
+                        <input class="form-input" type="text" id="train-name">
+                        <label class="input-label"  for="destination">Destination</label>
+                        <input class="form-input" type="text" id="destination">
+                        <label class="input-label"  for="first-time">First Train Time (HH:mm - military time)</label>
+                        <input class="form-input" type="text" id="first-time">
+                        <label class="input-label"  for="frequency">Frequency (min)</label>
+                        <input class="form-input" type="text" id="frequency">
+                        <button class="btn btn-default btn-md submit-button" id="submit-button">
+                            Submit <span class="glyphicon glyphicon-arrow-right"></span> 
+                        </button>
+                        
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal fade" id="login-modal">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Please sign in...</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <label class="login-input-label" id="first-name-label" for="first-name">First Name</label>
+                        <input class="login-input" type="text" id="first-name">
+                        <label class="login-input-label" id="last-name-label"  for="last-name">Last Name</label>
+                        <input class="login-input"id="last-name" type="text">
+                        <label class="login-input-label" for="email">Email</label>
+                        <input class="login-input" type="text" id="email">
+                        <label class="login-input-label"  for="password">Password</label>
+                        <input class="login-input"id="password" type="password">
+                    </div>
+                    <div class="modal-footer">
+                        <p id="new-user" >New user? <span id="register">Register</span></p>
+                        <button type="button" class="btn btn-success" id="login-button">Login</button>
+                        <button type="button" class="btn btn-primary" id="register-button">Register</button>
+                    </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <script
+        src="https://code.jquery.com/jquery-3.2.1.min.js"
+        integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+        crossorigin="anonymous"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+        <script src="./js/moment.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/3.9.0/firebase.js"></script>
+        <script src="./js/index.js"></script>
+    </body>
+</html>

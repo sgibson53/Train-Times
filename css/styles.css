@@ -1,0 +1,89 @@
+
+.jumbotron {
+    position: relative;
+}
+#main-title, #sub-title {
+    width: 100%;
+    text-align: center;
+}
+#login-register {
+    position: absolute;
+    bottom: 5%;
+    right: 5%;
+    display: block;
+}
+#welcome {
+    position: absolute;
+    bottom: 5%;
+    left: 5%;
+    display: none;
+}
+#welcome-text {
+    display: inline-block;
+}
+
+.input-label {
+    display: block;
+    margin: 5px 0 5px 15px;
+}
+
+.form-input {
+    width: 95%;
+    margin: 5px auto;
+    display: block;
+}
+
+.submit-button {
+    margin: 10px 0 10px 30px
+}
+
+
+/*Login modal*/
+.modal-header, .modal-body, .modal-footer {
+    border: none;
+}
+.modal-title {
+    display: inline-block;
+    font-size: 1.2em;
+}
+
+.login-input-label {
+    width: 20%;
+    margin: 10px 0 10px 9%;
+    text-align: right;
+    padding-right: 5px;
+}
+.login-input {
+    margin-right: 10%;
+    width: 60%;
+}
+#first-name, #last-name, #first-name-label, #last-name-label {
+    display: none;
+}
+
+#new-user {
+    position: absolute;
+    left: 15px;
+    bottom: 5px;
+    font-size: .8em;
+}
+#register {
+    color: #00E;
+    text-decoration: underline;
+    cursor: pointer;
+}
+#register-button {
+    width: 80px;
+    margin: auto;
+    display: none;
+}
+
+.currently-boarding {
+    animation: redBlinker 1.2s infinite;
+}
+
+@keyframes redBlinker {
+    0% {background: red;}
+    50% {background: white;}
+    100% {background: red;}
+}

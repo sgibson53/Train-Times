@@ -87,3 +87,16 @@
     50% {background: white;}
     100% {background: red;}
 }
+
+.remove-train {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%) scale(.7);
+    right: 5px;
+}
+.remove-train:focus {
+    outline: none;
+}
+td {
+    position: relative;
+}

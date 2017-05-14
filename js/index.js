@@ -47,7 +47,6 @@ $('#submit-button').on('click', function() {
   firebase.auth().onAuthStateChanged(function(user) {
     if (user) {
       // User is signed in.
-      console.log("took it")
       new_train = true;
       db.ref('/trains/train'+currentIndex).set({
           destination: $('#destination').val(),
@@ -94,17 +93,31 @@ function pullNewTrain(snapshot) {
         start.add(parseInt(new_train.frequency), 'm');
       }
 
-      var minutes_away = (moment().diff(start, 'minutes') == 0) ? "Currently Boarding!" : start.fromNow();
-
+      var boarding_message = "Currently Boarding!";
+      var minutes_away = (moment().diff(start, 'minutes') == 0) ? boarding_message : start.fromNow();
+      var boarding_class = (minutes_away == boarding_message) ? ' currently-boarding' : '';
+      var dataID = 'train'+currentIndex;
       var row = "<tr>" +
                   "<td>" + new_train.train_name  + "</td>" +
                     "<td>" + new_train.destination + "</td>" +
                     "<td>" + new_train.frequency + "</td>" +
                       "<td>" + start.format('h:mma') + "</td>" +
-                      "<td>" + minutes_away + "</td>" +
+                      "<td class=" + boarding_class + ">" + minutes_away + "<button data-id='" + dataID + "' class='btn glyphicon glyphicon-remove remove-train'></button></td>" +
                 "</tr>";
 
       $('#train-board').append(row);
+
+      $('.remove-train').on('click', function() {
+        var affirm = confirm("Are you sure you want to delete this train?");
+
+        if (affirm) {
+          db.ref('/trains').child($(this).attr('data-id')).remove();
+          // Refresh List
+          db.ref('/trains').once('value').then(function(snapshot) {
+            refreshBoard(snapshot);
+          });
+        }
+      });
 
     currentIndex = (parseInt(currentIndex)+1).toString();
     if (currentIndex < 10) currentIndex = '0'+currentIndex;
@@ -114,7 +127,10 @@ function pullNewTrain(snapshot) {
 function refreshBoard(snapshot) {
     
   // Return if no trains
-  if (!snapshot.val()) return;
+  if (snapshot.val() == null) {
+    $('#train-board').html('');
+    return;
+  }
 
     $('#train-board').html('');
     var trains = snapshot.val();
@@ -129,18 +145,30 @@ function refreshBoard(snapshot) {
         var boarding_message = "Currently Boarding!";
         var minutes_away = (moment().diff(start, 'minutes') == 0) ? boarding_message : start.fromNow();
         var boarding_class = (minutes_away == boarding_message) ? ' currently-boarding' : '';
-        var row = "<tr>" +
+        var row = "<tr id='"+o+"'>" +
                     "<td>" + trains[o].train_name  + "</td>" +
                      "<td>" + trains[o].destination + "</td>" +
                       "<td>" + trains[o].frequency + "</td>" +
                        "<td>" + start.format('h:mma') + "</td>" +
-                        "<td class=" + boarding_class + ">" + minutes_away + "</td>" +
+                        "<td class=" + boarding_class + ">" + minutes_away + "<button data-id='" + o + "' class='btn glyphicon glyphicon-remove remove-train'></button></td>" +
                   "</tr>";
 
         $('#train-board').append(row);
 
         
     }
+
+    $('.remove-train').on('click', function() {
+        var affirm = confirm("Are you sure you want to delete this train?");
+
+        if (affirm) {
+          db.ref('/trains').child($(this).attr('data-id')).remove();
+          // Refresh List
+          db.ref('/trains').once('value').then(function(snapshot) {
+            refreshBoard(snapshot);
+          });
+        }
+      });
     
     currentIndex = (parseInt(currentIndex)+1).toString();
     if (currentIndex < 10) currentIndex = '0'+currentIndex;
@@ -282,3 +310,4 @@ function register() {
     }
 
 }
+
